@@ -1,0 +1,263 @@
+/* ============================================================
+   GEOREVEST STUDIO — DESIGN TOKENS (css/tokens.css)
+   Carregado ANTES de main.css. É a ÚNICA casa dos tokens:
+   nenhum hex solto no corpo do main.css.
+   - Tema escuro = padrão (:root). Tema claro = html[data-theme="light"].
+   - Foco visível e prefers-reduced-motion vivem AQUI.
+     (não duplicar em css/a11y.css — o agente de acessibilidade
+      só complementa com skip-link e ajustes próprios)
+   - --accent / --accent-h / --accent-soft são sobrescritos em
+     runtime por CRE.applyAccent (js/app.js) via style inline no
+     <html>. Todo token derivado do acento usa color-mix() para
+     acompanhar a cor escolhida pelo usuário.
+   ============================================================ */
+
+:root {
+  /* ── 1. Superfícies ─────────────────────────────── */
+  --bg:            #090d16;
+  --bg-2:          #0f172a;
+  --panel:         #131c2e;
+  --panel-2:       #1a253c;
+  --panel-hover:   #22304d;
+  --surface-0:     var(--bg);
+  --surface-1:     var(--bg-2);
+  --surface-2:     var(--panel);
+  --surface-3:     var(--panel-2);
+  --surface-4:     var(--panel-hover);
+  --workspace-bg:  #06090e;
+
+  /* Papel: constante nos dois temas (a folha é branca sempre) */
+  --paper:         #ffffff;
+  --paper-ink:     #111111;
+  --paper-line:    #111111;
+  --paper-accent:  rgba(2, 132, 199, 0.08);
+  --page-muted:    #6b7280;   /* texto secundário sobre papel (era #aaa/#888) */
+
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-2:      rgba(255, 255, 255, 0.14);
+  --border-3:      rgba(255, 255, 255, 0.22);
+  --overlay:       rgba(0, 0, 0, 0.72);
+  --overlay-2:     rgba(0, 0, 0, 0.55);
+
+  /* ── 2. Texto ───────────────────────────────────── */
+  --text:          #f8fafc;
+  --text-2:        #cbd5e1;
+  --muted:         #94a3b8;   /* era #8291a5 — 6.6:1 sobre --panel */
+  --faint:         #8695ab;   /* era #475569 (2.5:1) — 5.6:1 sobre --panel */
+  --on-accent:     #ffffff;   /* texto sobre qualquer fill colorido */
+
+  /* ── 3. Acento ──────────────────────────────────── */
+  --accent:        #0284c7;
+  --accent-h:      #0ea5e9;   /* variante de texto/hi (sempre ≥4.5:1) */
+  --accent-deep:   #0369a1;
+  --accent-soft:   rgba(2, 132, 199, 0.16);
+  --accent-glow:   color-mix(in srgb, var(--accent-h) 28%, transparent);
+  /* fill escurecido: branco sobre ele garante AA em QUALQUER acento */
+  --accent-ink:    color-mix(in srgb, var(--accent) 65%, #000);
+  --accent-ink-h:  color-mix(in srgb, var(--accent-ink) 85%, #000);
+
+  /* ── 4. Foco (padrão global; a11y.css só complementa) ── */
+  --focus-ring:      #38bdf8;
+  --focus-ring-w:    2px;
+  --focus-ring-off:  2px;
+
+  /* ── 5. Status ──────────────────────────────────── */
+  --danger:       #ef4444;
+  --danger-h:     #f87171;
+  --danger-soft:  rgba(239, 68, 68, 0.15);
+  --danger-ink:   color-mix(in srgb, var(--danger) 88%, #000);
+  --danger-ink-h: color-mix(in srgb, var(--danger-ink) 85%, #000);
+
+  --success:      #10b981;
+  --success-h:    #34d399;
+  --success-soft: rgba(16, 185, 129, 0.15);
+  --success-ink:  color-mix(in srgb, var(--success) 65%, #000); /* 5.09:1 com branco no pior verde */
+  --success-ink-h: color-mix(in srgb, var(--success-ink) 85%, #000);
+
+  --warning:      #f59e0b;
+  --warning-h:    #fbbf24;
+  --warning-soft: rgba(245, 158, 11, 0.15);
+
+  --info:         #38bdf8;
+  --info-h:       #38bdf8;
+  --info-soft:    color-mix(in srgb, var(--info) 16%, transparent);
+  --info-line:    color-mix(in srgb, var(--info) 35%, transparent);
+
+  --neutral-soft: rgba(148, 163, 184, 0.15);
+  --wa:           #25d366;    /* WhatsApp */
+  --hilite:       #ffff00;    /* realce do editor (rb-hilite) */
+  --diff-changed: rgba(255, 193, 7, 0.18);   /* comparação: alterado */
+  --diff-added:   rgba(40, 167, 69, 0.16);   /* comparação: incluído */
+  --diff-removed: rgba(220, 53, 69, 0.13);   /* comparação: removido */
+  --swatch-rainbow: conic-gradient(from 210deg, #0284c7, #0ea5e9, #10b981, #f59e0b, #ef4444, #8b5cf6, #ec4899, #0284c7);
+
+  /* ── 6. Tipografia ──────────────────────────────── */
+  --font-sans:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font:         var(--font-sans);
+  --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-xs:      clamp(0.6875rem, 0.65rem + 0.16vw, 0.75rem);
+  --text-sm:      clamp(0.75rem, 0.72rem + 0.14vw, 0.8125rem);
+  --text-base:    clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);
+  --text-md:      clamp(0.875rem, 0.85rem + 0.18vw, 1rem);
+  --text-lg:      clamp(1rem, 0.96rem + 0.28vw, 1.125rem);
+  --text-xl:      clamp(1.125rem, 1.06rem + 0.4vw, 1.375rem);
+  --text-2xl:     clamp(1.375rem, 1.28rem + 0.6vw, 1.75rem);
+  --text-3xl:     clamp(1.75rem, 1.6rem + 0.9vw, 2.25rem);
+  --text-4xl:     clamp(2.125rem, 1.9rem + 1.3vw, 3rem);
+
+  --leading-tight:   1.15;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-extrabold: 800;
+
+  /* ── 7. Espaçamento (base 4px) ──────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+
+  /* ── 8. Raios ───────────────────────────────────── */
+  --radius-xs:    4px;
+  --radius-sm:    7px;
+  --radius:       11px;
+  --radius-lg:    15px;
+  --radius-xl:    20px;
+  --radius-full:  9999px;
+
+  /* ── 9. Sombras ─────────────────────────────────── */
+  --shadow-xs:    0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm:    0 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow-md:    0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg:    0 12px 28px rgba(0, 0, 0, 0.45);
+  --shadow-glow:  0 0 20px -2px var(--accent-glow);
+  --shadow-1:     var(--shadow-xs);
+  --shadow-2:     var(--shadow-sm);
+  --shadow-3:     var(--shadow-md);
+
+  /* ── 10. Movimento ──────────────────────────────── */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:      120ms;
+  --dur-base:      180ms;
+  --dur-slow:      280ms;   /* teto funcional do design system */
+  --dur-pulse:     2.2s;
+  --dur-pulse-fast: 1.6s;
+  --transition:    all var(--dur-base) var(--ease-out);
+
+  /* ── 11. Layout ─────────────────────────────────── */
+  --topbar-h:      60px;
+  --sidebar-w:     310px;
+  --page-w:        210mm;
+  --page-h:        297mm;
+  --lh-page:       1.52;    /* lineHeight da .page-body (editor) */
+  --content-max:   1440px;
+}
+
+/* ════════════════════════════════════════════════════
+   TEMA CLARO — mesma lista de tokens, valores distintos
+   ════════════════════════════════════════════════════ */
+
+html[data-theme="light"] {
+  --bg:            #f8fafc;
+  --bg-2:          #f1f5f9;
+  --panel:         #ffffff;
+  --panel-2:       #f8fafc;
+  --panel-hover:   #edf2f7;
+  --workspace-bg:  #cbd5e1;
+
+  --border:        rgba(0, 0, 0, 0.08);
+  --border-2:      rgba(0, 0, 0, 0.14);
+  --border-3:      rgba(0, 0, 0, 0.24);
+  --overlay:       rgba(15, 23, 42, 0.55);
+  --overlay-2:     rgba(15, 23, 42, 0.42);
+
+  --text:          #0f172a;
+  --text-2:        #334155;
+  --muted:         #5b6b7f;   /* era #64748b — 5.4:1 sobre --panel */
+  --faint:         #64748b;   /* era #94a3b8 (1.9:1) — 4.8:1 sobre --panel */
+
+  --accent:        #0284c7;
+  --accent-h:      #0369a1;
+  --accent-deep:   #075985;
+  --accent-soft:   rgba(2, 132, 199, 0.12);
+
+  --focus-ring:    #0369a1;
+
+  --danger:        #dc2626;
+  --danger-h:      #b91c1c;
+  --danger-soft:   rgba(220, 38, 38, 0.1);
+
+  --success:       #059669;
+  --success-h:     #047857;
+  --success-soft:  rgba(5, 150, 105, 0.1);
+
+  --warning:       #b45309;   /* era #d97706 — pill "pendente" a 2.4:1 */
+  --warning-h:     #92400e;
+  --warning-soft:  rgba(180, 83, 9, 0.1);
+
+  --info:          #0369a1;
+  --info-h:        #075985;
+  --info-soft:     color-mix(in srgb, var(--info) 12%, transparent);
+  --info-line:     color-mix(in srgb, var(--info) 30%, transparent);
+
+  /* #25d366 dá 1,7:1 sobre branco — verde escuro para texto/ícone */
+  --wa:            #0f7b45;
+
+  --shadow-xs:     0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:     0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg:     0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* ════════════════════════════════════════════════════
+   FOCO VISÍVEL — padrão global.
+   O anel fica com outline-offset, ou seja, sobre a SUPERFÍCIE
+   ao redor do controle; não depende da cor de fundo dele.
+   ════════════════════════════════════════════════════ */
+
+:focus-visible {
+  outline: var(--focus-ring-w) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-off);
+}
+
+/* ════════════════════════════════════════════════════
+   MOVIMENTO RESPEITOSO
+   Única fonte do projeto: durações viram 0s e animações caem
+   para 1 iteração. NÃO repetir este bloco em css/a11y.css.
+   ════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0s;
+    --dur-base: 0s;
+    --dur-slow: 0s;
+    --dur-pulse: 0s;
+    --dur-pulse-fast: 0s;
+    --transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

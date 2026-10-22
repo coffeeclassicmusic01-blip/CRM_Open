@@ -1,0 +1,6 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "orquestrador",
+  "instructions": ["AGENTS.md"],
+  "subagent_depth": 1
+}
